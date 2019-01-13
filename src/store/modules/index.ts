@@ -1,9 +1,35 @@
-import { combineEpics } from "redux-observable";
-import { combineReducers } from "redux";
+import { Reducer, bindActionCreators } from "redux";
+import { Action } from "redux";
 
-export const rootEpic = combineEpics(pingEpic, fetchUserEpic);
+export interface RootState {
+  sample: string;
+}
 
-export const rootReducer = combineReducers({
-  ping,
-  users
-});
+/* ======= Action Creators ======= */
+interface SampleAction extends Action {
+  type: "sampleAction";
+}
+
+export type Actions = SampleAction;
+
+/* ======= Initial State ======= */
+export const initialState: RootState = {
+  sample: ""
+};
+
+/* ======= Reducers ======= */
+const reducer: Reducer<RootState | undefined, Actions> = (
+  state = initialState,
+  action
+) => {
+  switch (action.type) {
+    case "sampleAction": {
+      return { ...state };
+    }
+    default: {
+      break;
+    }
+  }
+};
+
+export default reducer;
