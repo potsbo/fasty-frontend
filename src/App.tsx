@@ -1,11 +1,8 @@
 import React from "react";
-import { useStore } from "react-redux";
-
-import "./App.css";
+import TypeTask from "./TypeTask"
 
 const App: React.FC = () => {
-  const store = useStore();
-  return <div>{store.getState().sample}</div>;
+  return <TypeTask sentence="some words" />
 };
 
 export default App;
