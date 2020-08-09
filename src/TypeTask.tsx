@@ -7,6 +7,7 @@ interface Props {
 
 
 const TypeTask = (props: Props) => {
+    // TODO: need to check Japanese Romaji Table
     const valid = (typed: string) => {
         return props.sentence.startsWith(typed)
     }
@@ -15,6 +16,7 @@ const TypeTask = (props: Props) => {
 
     const onKeyDown = (event: KeyboardEvent) => {
         setTyped((current: string) => {
+            // TODO: expect backspace
             const challenge = current + event.key
             if (valid(challenge)) {
                 setMissTyped("")
