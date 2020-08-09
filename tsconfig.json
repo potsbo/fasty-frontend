@@ -1,8 +1,21 @@
 {
   "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "react-use-keypress": [
+        "types/react-use-keypress"
+      ]
+    },
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "typeRoots": ["src/*.ts"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "typeRoots": [
+      "src/*.d.ts",
+      "types"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -16,5 +29,7 @@
     "noEmit": true,
     "jsx": "preserve"
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

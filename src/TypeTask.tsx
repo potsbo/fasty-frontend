@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { doesNotReject } from "assert";
+import useKeypress from 'react-use-keypress';
 
 interface Props {
     sentence: string
@@ -55,20 +55,9 @@ class UserInput {
     }
 }
 
-const backspaceKeyCode = 8
-const spaceKeyCode = 32
-
-const validKey = (keyCode: number): boolean => {
-    // alphabets
-    if (65 <= keyCode && keyCode <= 90) {
-        return true
-    }
-
-    if (keyCode === backspaceKeyCode) { return true }
-    if (keyCode === spaceKeyCode) { return true }
-
-    return false
-}
+const alphabets = Array.from({ length: 26 }, (_, i) => String.fromCharCode('a'.charCodeAt(0) + i));
+const space = ' '
+const trapKeys = alphabets.concat([space])
 
 const TypeTask = (props: Props) => {
     // TODO: need to check Japanese Romaji Table
@@ -77,29 +66,27 @@ const TypeTask = (props: Props) => {
     }
     const [typed, setTyped] = useState(new UserInput())
 
-    const onKeyDown = (event: KeyboardEvent) => {
-        if (event.keyCode === backspaceKeyCode) {
-            setTyped((current: UserInput) => {
-                current.backspace()
-                return current.clone()
-            })
-            return
-        }
-        if (validKey(event.keyCode)) {
-            setTyped((current: UserInput) => {
-                const challenge = current.concatinated() + event.key
-                current.add(event.key, valid(challenge))
-                return current.clone()
-            })
-        }
-    }
+    useKeypress('Backspace', (_: KeyboardEvent) => {
+        setTyped((current: UserInput) => {
+            current.backspace()
+            return current.clone()
+        })
+    })
+
+    useKeypress(trapKeys, (event: KeyboardEvent) => {
+        console.log(event);
+        setTyped((current: UserInput) => {
+            const challenge = current.concatinated() + event.key
+            current.add(event.key, valid(challenge))
+            return current.clone()
+        })
+    })
+
     if (typed.getAccepted() === props.sentence.replace(/ /gi, "␣")) {
-        window.removeEventListener("keydown", onKeyDown)
         props.done();
     }
 
     useEffect(() => {
-        window.addEventListener("keydown", onKeyDown)
         setTyped(new UserInput())
     }, [props])
     return (
