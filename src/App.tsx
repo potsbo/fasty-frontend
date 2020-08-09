@@ -1,22 +1,20 @@
 import React, { useState } from "react";
-import TypeTask from "./TypeTask"
+import Lesson from "./Lesson"
 
 const App: React.FC = () => {
   const sentences = [
     'some words',
-    'another words',
-    'third example',
+
   ]
   const [index, setIndex] = useState(0)
-  const nextTask = () => {
+  console.log(index)
+  const nextLesson = () => {
     setIndex((current: number) => {
       return current + 1
     })
   }
-  if (sentences[index] === undefined) {
-    return <div>finished!!!</div>
-  }
-  return <TypeTask sentence={sentences[index]} done={nextTask} />
+
+  return <Lesson sentences={sentences} keepOrder={true} done={nextLesson} />
 };
 
 export default App;
