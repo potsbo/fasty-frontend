@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { doesNotReject } from "assert";
 
 interface Props {
     sentence: string
+    done: () => void
 }
 
 class UserInput {
-    public accepted: string = ""
-    public missTyped: string = ""
+    private accepted: string = ""
+    private missTyped: string = ""
 
     concatinated = (): string => {
         return this.accepted + this.missTyped
@@ -36,11 +38,11 @@ class UserInput {
     }
 
     getAccepted = () => {
-        return this.accepted
+        return this.accepted.replace(/ /gi, "␣")
     }
 
     getMissTyped = () => {
-        return this.missTyped
+        return this.missTyped.replace(/ /gi, "␣")
     }
 
     // TODO: I don't know a way to tell react that this object is actually changed
@@ -54,6 +56,19 @@ class UserInput {
 }
 
 const backspaceKeyCode = 8
+const spaceKeyCode = 32
+
+const validKey = (keyCode: number): boolean => {
+    // alphabets
+    if (65 <= keyCode && keyCode <= 90) {
+        return true
+    }
+
+    if (keyCode === backspaceKeyCode) { return true }
+    if (keyCode === spaceKeyCode) { return true }
+
+    return false
+}
 
 const TypeTask = (props: Props) => {
     // TODO: need to check Japanese Romaji Table
@@ -61,7 +76,6 @@ const TypeTask = (props: Props) => {
         return props.sentence.startsWith(typed)
     }
     const [typed, setTyped] = useState(new UserInput())
-    console.log(typed)
 
     const onKeyDown = (event: KeyboardEvent) => {
         if (event.keyCode === backspaceKeyCode) {
@@ -71,16 +85,22 @@ const TypeTask = (props: Props) => {
             })
             return
         }
-
-        setTyped((current: UserInput) => {
-            const challenge = current.concatinated() + event.key
-            current.add(event.key, valid(challenge))
-            return current.clone()
-        })
+        if (validKey(event.keyCode)) {
+            setTyped((current: UserInput) => {
+                const challenge = current.concatinated() + event.key
+                current.add(event.key, valid(challenge))
+                return current.clone()
+            })
+        }
+    }
+    if (typed.getAccepted() === props.sentence.replace(/ /gi, "␣")) {
+        window.removeEventListener("keydown", onKeyDown)
+        props.done();
     }
 
     useEffect(() => {
         window.addEventListener("keydown", onKeyDown)
+        setTyped(new UserInput())
     }, [props])
     return (
         <div>
