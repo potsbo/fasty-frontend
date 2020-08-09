@@ -13,6 +13,9 @@ const App: React.FC = () => {
       return current + 1
     })
   }
+  if (sentences[index] === undefined) {
+    return <div>finished!!!</div>
+  }
   return <TypeTask sentence={sentences[index]} done={nextTask} />
 };
 
