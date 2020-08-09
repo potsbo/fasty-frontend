@@ -1,11 +1,6 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "react-use-keypress": [
-        "types/react-use-keypress"
-      ]
-    },
     "target": "es5",
     "lib": [
       "dom",
