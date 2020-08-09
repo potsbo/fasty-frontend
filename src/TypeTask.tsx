@@ -7,18 +7,28 @@ interface Props {
 
 
 const TypeTask = (props: Props) => {
+    const valid = (typed: string) => {
+        return props.sentence.startsWith(typed)
+    }
     const [typed, setTyped] = useState("")
+    const [missTyped, setMissTyped] = useState("")
 
     const onKeyDown = (event: KeyboardEvent) => {
         setTyped((current: string) => {
-            return current += event.key
+            const challenge = current + event.key
+            if (valid(challenge)) {
+                setMissTyped("")
+                return challenge
+            }
+
+            setMissTyped((current: string) => {
+                return current + event.key
+            })
+            return current
         })
     }
 
-    console.log("hello")
-
     useEffect(() => {
-        console.log("event listener")
         window.addEventListener("keydown", onKeyDown)
     }, [props])
     return (
@@ -27,7 +37,12 @@ const TypeTask = (props: Props) => {
                 {props.sentence}
             </div>
             <div>
-                {typed}
+                <span>
+                    {typed}
+                </span>
+                <span style={{ color: 'red' }}>
+                    {missTyped}
+                </span>
             </div>
         </div>
     );
