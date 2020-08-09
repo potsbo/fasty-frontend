@@ -4,7 +4,8 @@ import Lesson from "./Lesson"
 const App: React.FC = () => {
   const sentences = [
     'some words',
-
+    'another words',
+    'third example',
   ]
   const [index, setIndex] = useState(0)
   console.log(index)
