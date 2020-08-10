@@ -12,6 +12,7 @@ export interface LessonData {
 
 const abcd: Course = {
     title: 'A Basic Course in Dvorak',
+    description: 'Source: http://gigliwood.com/abcd/', // TODO: fix link
     lessons: [
         {
             title: 'Lesson 1 Introducing U and H: Home row, Index fingers',
