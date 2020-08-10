@@ -116,7 +116,7 @@ const TypeTask = (props: Props) => {
     return (
         <div>
             <div style={{ color: getColor(props.state) }}>
-                {props.sentence}
+                {props.sentence.replace(/ /gi, "␣")}
             </div>
             <div>
                 <span>

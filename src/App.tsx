@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import Lesson from "./Lesson"
+import abcd from "./courses"
 
 const App: React.FC = () => {
-  const sentences = [
-    'some words',
-    'another words',
-    'third example',
-  ]
+  const course = abcd
   const [index, setIndex] = useState(0)
 
   const nextLesson = () => {
@@ -19,7 +16,14 @@ const App: React.FC = () => {
     return <div>done</div>
   }
 
-  return <Lesson sentences={sentences} keepOrder={true} done={nextLesson} />
+  return (
+    <div>
+      <div>
+        <h2>{course.title}</h2>
+      </div>
+      <Lesson data={course.lessons[index]} done={nextLesson} />
+    </div>
+  )
 };
 
 export default App;
