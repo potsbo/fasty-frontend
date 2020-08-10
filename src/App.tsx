@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  Redirect
-} from "react-router-dom";
-import CourseView from "./CourseView"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronLeft, faCode } from '@fortawesome/free-solid-svg-icons'
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
+import CourseView from "./CourseView";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faCode } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components/macro";
 
-window.addEventListener('keydown', function (e) {
+window.addEventListener("keydown", function (e) {
   if (e.keyCode === 32 && e.target === document.body) {
     e.preventDefault();
   }
@@ -22,8 +16,12 @@ const App: React.FC = () => {
     <Router>
       <div>
         <Nav>
-          <Link to="/"><FontAwesomeIcon icon={faChevronLeft} /></Link>
-          <a style={{ marginLeft: 'auto' }} href="https://github.com/potsbo/fasty-frontend"><FontAwesomeIcon icon={faCode} /></a>
+          <Link to="/">
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </Link>
+          <a style={{ marginLeft: "auto" }} href="https://github.com/potsbo/fasty-frontend">
+            <FontAwesomeIcon icon={faCode} />
+          </a>
         </Nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -35,7 +33,7 @@ const App: React.FC = () => {
           <Route path="/courses/:courseSlug" component={CourseView} />
         </Switch>
       </div>
-    </Router >
+    </Router>
   );
 };
 
@@ -45,4 +43,4 @@ const Nav = styled.nav`
   padding: 8px;
   border-bottom: black;
   display: flex;
-`
+`;
