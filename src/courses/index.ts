@@ -97,19 +97,53 @@ const abcd: Course = {
         {
             title: 'Lesson 6 Introducing A and S: Home row, fourth fingers',
             sentences: [
-                'to be updated',
+                'aaaa ssss aaaa ssss  aaaa ssss aaaa ssss',
+                'aaaa ssss aaaa ssss  aaaa ssss aaaa ssss',
+                'as as as as',
+                'sa sa sa sa',
+                'sas sas sas sas',
+                'ass ass ass ass',
+                'sass sass sass sass',
+                'as a sass ass as a sas',
+                'as a sass ass as a sas',
             ]
         },
         {
             title: 'Lesson 7 Comprehensive, including A and S',
             sentences: [
-                'to be updated',
+                'aaaa eeee hhhh nnnn oooo ssss tttt uuuu',
+                'ah ah ah ah  an an an an  at at at at  ha ha ha ha  so so so so  us us us us',
+                'ash ash ash ash  San San San San  sat sat sat sat  sea sea sea sea',
+                'ease ease ease ease  east east east east  Haas Haas Haas Haas',
+                'Hans Hans Hans Hans  hash hash hash hash  sane sane sane sane',
+                'sash sash sash sash  Sean Sean Sean Sean  seat seat seat seat',
+                'Stan Stan Stan Stan',
+
+                'Sean hates tetanus shots',
+                'Eat the toast at ten to noon',
+                'The Taos sun shone as hot as Santa Anna',
+                'Anthea assesses the estate at South Tahoe',
+                'Hotshot Hanna uses these shoes that Shannon soon sees',
+                'At noon on the teahouse Aunt Tess hushes the nauseous host',
+                'Annette senses the sensuous sunset onset on the Athens sea',
+                'Tess Sutton notates the tenuous state that southeast Houston has seen',
+                'Ethan Ness attests to these Tennessee Senate OSHA statutes to shun Utah',
             ]
         },
         {
             title: 'Lesson 8 Introducing I and D: Index finger stretching in the home row',
             sentences: [
-                'to be updated',
+                'iiii dddd iiii dddd  iiii dddd iiii dddd',
+                'iiii dddd iiii dddd  iiii dddd iiii dddd',
+                'id id id id',
+                'id id id id',
+                'did did did did',
+                'did did did did',
+                'Didi did id did i',
+                'Didi did id did i',
+                'uuuu hhhh iiii dddd',
+                'du du du du  hi hi hi hi',
+                'dud dud dud dud  hid hid hid hid',
             ]
         },
         {
