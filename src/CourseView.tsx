@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import abcd, { Course, LessonData } from "./courses"
-import styled from "styled-components/macro";
-
 import {
+    Redirect,
+    Route,
+    Switch,
+    useHistory,
     useLocation,
     useParams,
-    useRouteMatch,
-    Switch,
-    Route,
-    Redirect,
-    useHistory
+    useRouteMatch
 } from "react-router-dom";
+import styled from "styled-components/macro";
+import abcd, { Course, LessonData } from "./courses";
 import Lesson from "./Lesson";
+
 
 const courses = new Map<string, Course>([
     ["abcd", abcd]
@@ -50,10 +50,9 @@ const CourseView = (_: {}) => {
                         {l.title}
                         <RoundButton theme={theme} onClick={() => { history.push(`${url}/lessons/${idx + 1}`) }}>Start</RoundButton>
                     </FlexSpan>
-                    {/* TODO: styled components, transition */}
-                    <div hidden={previewIdx !== idx} style={{ marginTop: '16px', marginLeft: "48px", overflow: "scroll", height: '200px' }}>
-                        {l.sentences.map((s: string, i: number) => <p key={`${s}-${i}`} style={{ margin: "8px" }}>{s}</p>)}
-                    </div>
+                    <TaskPreview theme={theme}>
+                        {l.sentences.map((s: string, i: number) => <p key={`${s}${i}`} style={{ margin: "8px" }}>{s}</p>)}
+                    </TaskPreview>
 
                 </RoundBar>
 
@@ -121,6 +120,8 @@ const RoundBar = styled.span`
 
     margin-left: ${props => props.theme.previewState ? -bigger : 0}px;
     margin-right: ${props => props.theme.previewState ? -bigger : 0}px;
+    margin-top: ${props => props.theme.previewState ? 2 * bigger : 0}px;
+    margin-bottom: ${props => props.theme.previewState ? 2 * bigger : 0}px;
     color: black;
 
     align-items: start;
@@ -155,7 +156,8 @@ const Circle = styled.div`
 
 const RoundButton = styled.button`
     box-sizing: border-box;
-    display: ${props => props.theme.previewState ? 'flex' : 'none'};
+    opacity: ${props => props.theme.previewState ? 100 : 0}%;
+    display: flex;
 
     background-color: #00A2FF;
     color: white;
@@ -168,10 +170,11 @@ const RoundButton = styled.button`
     border: none;
 
     margin-left: auto;
-    hidden: true;
+    transition: 0.2s;
+    transition-timing-function: ease;
 
     ${RoundBar}:hover & {
-        display: flex;
+        opacity: 100%;
     }
 
     &:hover {
@@ -180,4 +183,13 @@ const RoundButton = styled.button`
     &:focus {
         border:none;
     }
+`
+
+const TaskPreview = styled.div`
+    margin-top: 16px;
+    margin-left: 48px;
+    overflow: scroll;
+    height:  ${props => props.theme.previewState ? 200 : 0}px;
+    transition: 0.2s;
+    transition-timing-function: ease;
 `
