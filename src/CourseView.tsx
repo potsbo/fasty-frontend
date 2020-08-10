@@ -8,7 +8,8 @@ import {
     useRouteMatch,
     Switch,
     Route,
-    Redirect
+    Redirect,
+    useHistory
 } from "react-router-dom";
 import Lesson from "./Lesson";
 
@@ -25,6 +26,7 @@ const CourseView = (_: {}) => {
     const previewIdFromQuery = parseInt(useQuery().get("preview") || "");
     const { path, url } = useRouteMatch();
     const [previewIdx, setPreviewIdx] = useState<number | undefined>(previewIdFromQuery || undefined)
+    const history = useHistory();
     const course = courses.get(courseSlug);
     if (course === undefined) {
         // TODO: better 404
@@ -39,14 +41,16 @@ const CourseView = (_: {}) => {
 
     const lessonList = course.lessons.map((l: LessonData, idx: number) => {
         // TODO: better link management
+        const theme = { previewState: previewIdx === idx }
         return (
             <Li key={idx}>
-                <RoundBar theme={{ previewState: previewIdx === idx }} onClick={() => { onClickBar(idx) }}>
+                <RoundBar theme={theme} onClick={() => { onClickBar(idx) }}>
                     <FlexSpan >
                         <Circle>{idx + 1}</Circle>
                         {l.title}
+                        <RoundButton theme={theme} onClick={() => { history.push(`${url}/lessons/${idx + 1}`) }}>Start</RoundButton>
                     </FlexSpan>
-                    {/* TODO: styled components */}
+                    {/* TODO: styled components, transition */}
                     <div hidden={previewIdx !== idx} style={{ marginTop: '16px', marginLeft: "48px", overflow: "scroll", height: '200px' }}>
                         {l.sentences.map((s) => <p style={{ margin: "8px" }}>{s}</p>)}
                     </div>
@@ -147,4 +151,33 @@ const Circle = styled.div`
     font-weight: bold;
     border-radius: 50%;
     margin-right: 16px;
+`
+
+const RoundButton = styled.button`
+    box-sizing: border-box;
+    display: ${props => props.theme.previewState ? 'flex' : 'none'};
+
+    background-color: #00A2FF;
+    color: white;
+    height: 36px;
+    width: 72px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border-radius: 18px;
+    border: none;
+
+    margin-left: auto;
+    hidden: true;
+
+    ${RoundBar}:hover & {
+        display: flex;
+    }
+
+    &:hover {
+        box-shadow: 0px 0px 10px 4px #DDDDDD;
+    }
+    &:focus {
+        border:none;
+    }
 `
