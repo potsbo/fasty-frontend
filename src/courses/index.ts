@@ -1,5 +1,6 @@
 export interface Course {
     title: string
+    description?: string
     lessons: LessonData[] // TODO: rename to Lesson after current `Lesson` component renamed to `LessonView`
 }
 

@@ -1,15 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import TypeTask, { State } from "./TypeTask";
-import { LessonData } from "./courses"
+import { Course } from "./courses"
+import {
+    useParams,
+} from "react-router-dom";
 
 interface Props {
-    data: LessonData
-    done: () => void
+    course: Course
 }
 
 const Lesson = (props: Props) => {
+    const { lessonId } = useParams();
+    console.log(lessonId)
+    const id = parseInt(lessonId)
+    const lessonData = props.course.lessons[id - 1]
+
     const [index, setIndex] = useState(0)
     const [doneIdx, setDoneIdx] = useState(new Set<number>())
+
+    if (lessonData === undefined) {
+        // TODO: better 404
+        return <div>404</div>
+    }
 
     const nextTask = (idx: number) => {
         return () => {
@@ -23,7 +35,7 @@ const Lesson = (props: Props) => {
         }
     }
 
-    const tasks = props.data.sentences.map((s, idx) => {
+    const tasks = lessonData.sentences.map((s, idx) => {
         if (doneIdx.has(idx)) {
             return <TypeTask sentence={s} done={nextTask(idx)} key={idx} state={State.Done} />
         }
@@ -32,16 +44,10 @@ const Lesson = (props: Props) => {
         return <TypeTask sentence={s} done={nextTask(idx)} key={idx} state={state} />
     })
 
-    useEffect(() => {
-        if (props.data.sentences[index] === undefined) {
-            props.done()
-        }
-    })
-
     return (
         <div>
             <div>
-                <h3>{props.data.title}</h3>
+                <h3>{lessonData.title}</h3>
             </div>
             <div>
                 {tasks}
