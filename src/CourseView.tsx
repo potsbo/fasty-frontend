@@ -115,6 +115,7 @@ const bigger = 12;
 const RoundBar = styled.span`
   box-sizing: border-box;
   display: block;
+  cursor: default;
 
   height: ${(props) => (props.theme.previewState ? 300 : 48)}px;
   box-shadow: ${(props) => (props.theme.previewState ? "0px 0px 10px 4px #CCCCCC" : "none")};
