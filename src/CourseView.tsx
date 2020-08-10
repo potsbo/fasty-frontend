@@ -23,7 +23,7 @@ const useQuery = () => {
 
 const CourseView = (_: {}) => {
     const { courseSlug } = useParams();
-    const previewIdFromQuery = parseInt(useQuery().get("preview") || "");
+    const previewIdFromQuery = parseInt(useQuery().get("preview") || "", 10);
     const { path, url } = useRouteMatch();
     const [previewIdx, setPreviewIdx] = useState<number | undefined>(previewIdFromQuery || undefined)
     const history = useHistory();
