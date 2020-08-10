@@ -11,7 +11,6 @@ interface Props {
 
 const Lesson = (props: Props) => {
     const { lessonId } = useParams();
-    console.log(lessonId)
     const id = parseInt(lessonId)
     const lessonData = props.course.lessons[id - 1]
 
