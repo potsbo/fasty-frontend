@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import abcd, { Course, LessonData } from "./courses"
-import styled from "styled-components/macro";
-
 import {
+    Redirect,
+    Route,
+    Switch,
+    useHistory,
     useLocation,
     useParams,
-    useRouteMatch,
-    Switch,
-    Route,
-    Redirect,
-    useHistory
+    useRouteMatch
 } from "react-router-dom";
+import styled from "styled-components/macro";
+import abcd, { Course, LessonData } from "./courses";
 import Lesson from "./Lesson";
+
 
 const courses = new Map<string, Course>([
     ["abcd", abcd]
@@ -23,7 +23,7 @@ const useQuery = () => {
 
 const CourseView = (_: {}) => {
     const { courseSlug } = useParams();
-    const previewIdFromQuery = parseInt(useQuery().get("preview") || "");
+    const previewIdFromQuery = parseInt(useQuery().get("preview") || "", 10);
     const { path, url } = useRouteMatch();
     const [previewIdx, setPreviewIdx] = useState<number | undefined>(previewIdFromQuery || undefined)
     const history = useHistory();
@@ -43,7 +43,7 @@ const CourseView = (_: {}) => {
         // TODO: better link management
         const theme = { previewState: previewIdx === idx }
         return (
-            <Li key={idx}>
+            <Li key={l.title}>
                 <RoundBar theme={theme} onClick={() => { onClickBar(idx) }}>
                     <FlexSpan >
                         <Circle>{idx + 1}</Circle>
@@ -51,7 +51,7 @@ const CourseView = (_: {}) => {
                         <RoundButton theme={theme} onClick={() => { history.push(`${url}/lessons/${idx + 1}`) }}>Start</RoundButton>
                     </FlexSpan>
                     <TaskPreview theme={theme}>
-                        {l.sentences.map((s) => <p style={{ margin: "8px" }}>{s}</p>)}
+                        {l.sentences.map((s: string, i: number) => <p key={`${s}${i}`} style={{ margin: "8px" }}>{s}</p>)}
                     </TaskPreview>
 
                 </RoundBar>
