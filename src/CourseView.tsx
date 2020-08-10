@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import abcd, { Course, LessonData } from "./courses"
 import styled from "styled-components/macro";
 
 import {
-    Link,
+    useLocation,
     useParams,
     useRouteMatch,
     Switch,
@@ -16,28 +16,44 @@ const courses = new Map<string, Course>([
     ["abcd", abcd]
 ])
 
+const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+}
+
 const CourseView = (_: {}) => {
     const { courseSlug } = useParams();
+    const previewIdFromQuery = parseInt(useQuery().get("preview") || "");
     const { path, url } = useRouteMatch();
+    const [previewIdx, setPreviewIdx] = useState<number | undefined>(previewIdFromQuery || undefined)
     const course = courses.get(courseSlug);
     if (course === undefined) {
         // TODO: better 404
         return <div>404</div>
+    }
+    const onClickBar = (idx: number) => {
+        setPreviewIdx((current) => {
+            if (current === idx) { return undefined }
+            return idx
+        })
     }
 
     const lessonList = course.lessons.map((l: LessonData, idx: number) => {
         // TODO: better link management
         return (
             <Li key={idx}>
-                <Link to={`${url}/lessons/${idx + 1}`} style={{ textDecoration: 'none' }}>
-                    <BlockSpan>
-                        <Circle>
-                            {idx + 1}
-                        </Circle>
+                <RoundBar theme={{ previewState: previewIdx === idx }} onClick={() => { onClickBar(idx) }}>
+                    <FlexSpan >
+                        <Circle>{idx + 1}</Circle>
                         {l.title}
-                    </BlockSpan>
-                </Link>
-            </Li>
+                    </FlexSpan>
+                    {/* TODO: styled components */}
+                    <div hidden={previewIdx !== idx} style={{ marginTop: '16px', marginLeft: "48px", overflow: "scroll", height: '200px' }}>
+                        {l.sentences.map((s) => <p style={{ margin: "8px" }}>{s}</p>)}
+                    </div>
+
+                </RoundBar>
+
+            </Li >
         )
     })
     return (
@@ -68,7 +84,7 @@ export default CourseView
 
 // TODO: better font
 const Center = styled.div`
-    width: 1280px;
+    width: 960px;
     margin: auto;
     font-family: Helvetica;
 `
@@ -82,24 +98,39 @@ const Ul = styled.ul`
     padding: 0;
 `
 
-const BlockSpan = styled.ul`
-    box-sizing: border-box;
+const FlexSpan = styled.span`
     display: flex;
+    align-items: center;
+`
 
-    height: 48px;
+const bigger = 12
+
+const RoundBar = styled.span`
+    box-sizing: border-box;
+    display: block;
+
+    height: ${props => props.theme.previewState ? 300 : 48}px;
+    box-shadow: ${props => props.theme.previewState ? '0px 0px 10px 4px #CCCCCC' : 'none'};
     border-radius: 24px;
 
-    padding: 8px;
-    padding-left: 0px;
+    padding: ${props => 6 + (props.theme.previewState ? bigger : 0)}px;
+
+    margin-left: ${props => props.theme.previewState ? -bigger : 0}px;
+    margin-right: ${props => props.theme.previewState ? -bigger : 0}px;
     color: black;
 
-    align-items: center;
+    align-items: start;
     text-decoration: none;
-    transition: 0.3s;
+    transition: 0.2s;
+    transition-timing-function: ease;
 
     &:hover {
         color: black;
-        box-shadow: 0px 0px 10px 4px #888888;
+        box-shadow: 0px 0px 10px 4px #DDDDDD;
+    }
+
+    &:focus {
+        height: 300px;
     }
 `
 
@@ -115,6 +146,5 @@ const Circle = styled.div`
     justify-content: center;
     font-weight: bold;
     border-radius: 50%;
-    margin-left: 6px;
     margin-right: 16px;
 `
