@@ -12,7 +12,7 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
 import styled from "styled-components/macro";
 
 window.addEventListener('keydown', function (e) {
-  if (e.keyCode == 32 && e.target == document.body) {
+  if (e.keyCode === 32 && e.target === document.body) {
     e.preventDefault();
   }
 });
