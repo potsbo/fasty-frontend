@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import TypeTask, { State } from "./TypeTask";
+import { LessonData } from "./courses"
 
 interface Props {
-    sentences: string[]
-    keepOrder: boolean
+    data: LessonData
     done: () => void
 }
 
@@ -23,7 +23,7 @@ const Lesson = (props: Props) => {
         }
     }
 
-    const tasks = props.sentences.map((s, idx) => {
+    const tasks = props.data.sentences.map((s, idx) => {
         if (doneIdx.has(idx)) {
             return <TypeTask sentence={s} done={nextTask(idx)} key={idx} state={State.Done} />
         }
@@ -33,14 +33,19 @@ const Lesson = (props: Props) => {
     })
 
     useEffect(() => {
-        if (props.sentences[index] === undefined) {
+        if (props.data.sentences[index] === undefined) {
             props.done()
         }
     })
 
     return (
         <div>
-            {tasks}
+            <div>
+                <h3>{props.data.title}</h3>
+            </div>
+            <div>
+                {tasks}
+            </div>
         </div>
     )
 }
