@@ -43,7 +43,7 @@ const CourseView = (_: {}) => {
         // TODO: better link management
         const theme = { previewState: previewIdx === idx }
         return (
-            <Li key={idx}>
+            <Li key={l.title}>
                 <RoundBar theme={theme} onClick={() => { onClickBar(idx) }}>
                     <FlexSpan >
                         <Circle>{idx + 1}</Circle>
@@ -52,7 +52,7 @@ const CourseView = (_: {}) => {
                     </FlexSpan>
                     {/* TODO: styled components, transition */}
                     <div hidden={previewIdx !== idx} style={{ marginTop: '16px', marginLeft: "48px", overflow: "scroll", height: '200px' }}>
-                        {l.sentences.map((s) => <p style={{ margin: "8px" }}>{s}</p>)}
+                        {l.sentences.map((s: string, i: number) => <p key={`${s}-${i}`} style={{ margin: "8px" }}>{s}</p>)}
                     </div>
 
                 </RoundBar>
