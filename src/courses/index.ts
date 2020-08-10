@@ -12,6 +12,7 @@ export interface LessonData {
 
 const abcd: Course = {
     title: 'A Basic Course in Dvorak',
+    description: 'Source: http://gigliwood.com/abcd/', // TODO: fix link
     lessons: [
         {
             title: 'Lesson 1 Introducing U and H: Home row, Index fingers',
@@ -29,25 +30,54 @@ const abcd: Course = {
         {
             title: 'Lesson 2 Introducing E and T: Home row, Second fingers',
             sentences: [
-                'to be updated',
+                'eeee tttt eeee tttt  eeee tttt eeee tttt',
+                'eeee tttt eeee tttt  eeee tttt eeee tttt',
+                'et et et et',
+                'tee tee tee tee',
+                'tete tete tete tete',
+                'eet eet eet eet',
+                't e et te teet tee teet tete et',
+                't e et te teet tee teet tete et',
             ]
         },
         {
             title: 'Lesson 3 Comprehensive: E, H, T, U',
             sentences: [
-                'to be updated',
+                'eeee hhhh tttt uuuu',
+                'eeee hhhh tttt uuuu',
+                'eeee hhhh tttt uuuu',
+                'hue hue hue hue  tutu tutu tutu tutu  the the the the  he he he he he',
+                'teeth teeth teeth teeth  hut hut hut hut',
+                'thee thee thee thee  tutu tutu tutu tutu',
+                'eh he hue hut teeth teethe the thee tutu',
+                'eh he hue hut teeth teethe the thee tutu',
             ]
         },
         {
             title: 'Lesson 4 Introducing O and N: Home row, third fingers',
             sentences: [
-                'to be updated',
+                'oooo nnnn oooo nnnn  oooo nnnn oooo nnnn',
+                'oooo nnnn oooo nnnn  oooo nnnn oooo nnnn',
+                'no no no no',
+                'on on on on',
+                'non non non non',
+                'noon noon noon noon',
+                'ono ono ono ono',
+                'no non noon on noo ono',
+                'no non noon on noo ono',
             ]
         },
         {
             title: 'Lesson 5 Comprehensive, including O and N',
             sentences: [
-                'to be updated',
+                'HUN',
+                'eeee hhhh nnnn oooo tttt uuuu',
+                'en en en en  ho ho ho ho  ne ne ne ne  nu nu nu nu  oh oh oh oh  to to to to',
+                'hen hen hen hen  hoe hoe hoe hoe  hot hot hot hot  Hun Hun Hun Hun',
+                'nee nee nee nee  net net net net  not not not not  nun nun nun nun',
+                'nut nut nut nut  one one one one  out out out out  ten ten ten ten',
+                'TNT TNT TNT TNT  toe toe toe toe  ton ton ton ton  too too too too',
+                'tot tot tot tot  tun tun tun tun',
             ]
         },
         {

@@ -73,9 +73,10 @@ class UserInput {
     }
 }
 
-const alphabets = Array.from({ length: 26 }, (_, i) => String.fromCharCode('a'.charCodeAt(0) + i));
+const lowers = Array.from({ length: 26 }, (_, i) => String.fromCharCode('a'.charCodeAt(0) + i));
+const uppers = Array.from({ length: 26 }, (_, i) => String.fromCharCode('A'.charCodeAt(0) + i));
 const space = ' '
-const trapKeys = alphabets.concat([space])
+const trapKeys = lowers.concat(uppers, [space])
 
 const TypeTask = (props: Props) => {
     // TODO: need to check Japanese Romaji Table
