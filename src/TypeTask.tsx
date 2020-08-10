@@ -113,6 +113,13 @@ const TypeTask = (props: Props) => {
     if (props.state !== State.Active) {
       return;
     }
+    if (event.metaKey) {
+      return;
+    }
+    if (event.ctrlKey) {
+      return;
+    }
+
     setTyped((current: UserInput) => {
       const challenge = current.concatinated() + event.key;
       current.add(event.key, valid(challenge));
