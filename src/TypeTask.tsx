@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import useKeypress from 'react-use-keypress';
+import styled from "styled-components/macro";
 
 interface Props {
     sentence: string
     state: State,
+    index?: number,
+    total?: number,
     done: () => void
 }
 
@@ -21,6 +24,17 @@ const getColor = (s: State): string => {
             return "black"
         case State.Done:
             return "green"
+    }
+}
+
+const getOpacity = (s: State): number => {
+    switch (s) {
+        case State.Inactive:
+            return 50
+        case State.Active:
+            return 100
+        case State.Done:
+            return 0
     }
 }
 
@@ -114,21 +128,44 @@ const TypeTask = (props: Props) => {
     useEffect(() => {
         setTyped(new UserInput())
     }, [props])
+
     return (
-        <div>
+        <TaskCard theme={{ state: props.state }}>
+            {props.total && props.index && <div>{props.index}/{props.total}</div>}
             <div style={{ color: getColor(props.state) }}>
-                {props.sentence.replace(/ /gi, "␣")}
+                <TaskSpan>
+                    {props.sentence.replace(/ /gi, "␣")}
+                </TaskSpan>
             </div>
             <div>
-                <span>
+                <TaskSpan>
                     {typed.getAccepted()}
-                </span>
-                <span style={{ color: 'red' }}>
+                </TaskSpan>
+                <TaskSpan style={{ color: 'red' }}>
                     {typed.getMissTyped()}
-                </span>
+                </TaskSpan>
             </div>
-        </div>
+        </TaskCard>
     );
 };
 
 export default TypeTask;
+
+const TaskSpan = styled.span`
+    font-size: 18px;
+    letter-spacing: 2px;
+`
+
+const TaskCard = styled.div`
+    border-radius: 18px;
+    box-shadow: 0px 0px 10px 4px #DDDDDD;
+    height: ${props => props.theme.state === State.Done ? 0 : 150}px;
+    padding: ${props => props.theme.state === State.Done ? 0 : 36}px;
+    padding-left: 36px;
+    padding-right: 36px;
+    margin: ${props => props.theme.state === State.Done ? 0 : 36}px;
+    margin-left: 36px;
+    margin-right: 36px;
+    opacity: ${props => getOpacity(props.theme.state)}%;
+    transition: 0.1s;
+`

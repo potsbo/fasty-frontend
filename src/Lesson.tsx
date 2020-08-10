@@ -40,7 +40,7 @@ const Lesson = (props: Props) => {
         }
 
         const state: State = idx === index ? State.Active : State.Inactive
-        return <TypeTask sentence={s} done={nextTask(idx)} key={idx} state={state} />
+        return <TypeTask sentence={s} done={nextTask(idx)} key={idx} state={state} index={idx + 1} total={lessonData.sentences.length} />
     })
 
     return (
