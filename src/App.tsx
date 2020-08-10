@@ -6,7 +6,6 @@ import {
   Link
 } from "react-router-dom";
 import CourseView from "./CourseView"
-import abcd from "./courses"
 
 const App: React.FC = () => {
   return (
@@ -26,9 +25,7 @@ const App: React.FC = () => {
         {/* A <Switch> looks through its children <Route>s and
         renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/courses/abcd">
-            <CourseView course={abcd} />
-          </Route>
+          <Route path="/courses/:courseSlug" component={CourseView} />
         </Switch>
       </div>
     </Router>
