@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useKeypress from 'react-use-keypress';
+import styled from "styled-components/macro";
 
 interface Props {
     sentence: string
@@ -115,20 +116,35 @@ const TypeTask = (props: Props) => {
         setTyped(new UserInput())
     }, [props])
     return (
-        <div>
+        <TaskCard>
             <div style={{ color: getColor(props.state) }}>
-                {props.sentence.replace(/ /gi, "␣")}
+                <TaskSpan>
+                    {props.sentence.replace(/ /gi, "␣")}
+                </TaskSpan>
             </div>
             <div>
-                <span>
+                <TaskSpan>
                     {typed.getAccepted()}
-                </span>
-                <span style={{ color: 'red' }}>
+                </TaskSpan>
+                <TaskSpan style={{ color: 'red' }}>
                     {typed.getMissTyped()}
-                </span>
+                </TaskSpan>
             </div>
-        </div>
+        </TaskCard>
     );
 };
 
 export default TypeTask;
+
+const TaskSpan = styled.span`
+    font-size: 18px;
+    letter-spacing: 2px;
+`
+
+const TaskCard = styled.div`
+    border-radius: 18px;
+    box-shadow: 0px 0px 10px 4px #DDDDDD;
+    height: 150px;
+    padding: 36px;
+    margin: 36px;
+`

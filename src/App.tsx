@@ -7,6 +7,12 @@ import {
 } from "react-router-dom";
 import CourseView from "./CourseView"
 
+window.addEventListener('keydown', function (e) {
+  if (e.keyCode == 32 && e.target == document.body) {
+    e.preventDefault();
+  }
+});
+
 const App: React.FC = () => {
   return (
     <Router>

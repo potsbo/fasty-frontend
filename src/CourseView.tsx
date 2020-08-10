@@ -64,7 +64,7 @@ const CourseView = (_: {}) => {
         <Center>
             <div>
                 <h2>{course.title}</h2>
-                {course.description && <p>{course.description}</p>}
+                {/* {course.description && <p>{course.description}</p>} */}
             </div>
 
             <Switch>
