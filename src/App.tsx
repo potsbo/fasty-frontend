@@ -8,11 +8,15 @@ const App: React.FC = () => {
     'third example',
   ]
   const [index, setIndex] = useState(0)
-  console.log(index)
+
   const nextLesson = () => {
     setIndex((current: number) => {
       return current + 1
     })
+  }
+
+  if (index > 0) {
+    return <div>done</div>
   }
 
   return <Lesson sentences={sentences} keepOrder={true} done={nextLesson} />

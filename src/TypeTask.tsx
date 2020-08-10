@@ -3,7 +3,25 @@ import useKeypress from 'react-use-keypress';
 
 interface Props {
     sentence: string
+    state: State,
     done: () => void
+}
+
+export enum State {
+    Inactive = 1,
+    Active,
+    Done,
+}
+
+const getColor = (s: State): string => {
+    switch (s) {
+        case State.Inactive:
+            return "gray"
+        case State.Active:
+            return "black"
+        case State.Done:
+            return "green"
+    }
 }
 
 class UserInput {
@@ -67,6 +85,7 @@ const TypeTask = (props: Props) => {
     const [typed, setTyped] = useState(new UserInput())
 
     useKeypress('Backspace', (_: KeyboardEvent) => {
+        if (props.state !== State.Active) { return }
         setTyped((current: UserInput) => {
             current.backspace()
             return current.clone()
@@ -74,7 +93,7 @@ const TypeTask = (props: Props) => {
     })
 
     useKeypress(trapKeys, (event: KeyboardEvent) => {
-        console.log(event);
+        if (props.state !== State.Active) { return }
         setTyped((current: UserInput) => {
             const challenge = current.concatinated() + event.key
             current.add(event.key, valid(challenge))
@@ -82,16 +101,21 @@ const TypeTask = (props: Props) => {
         })
     })
 
-    if (typed.getAccepted() === props.sentence.replace(/ /gi, "␣")) {
-        props.done();
-    }
+
+    useEffect(() => {
+        if (typed.getAccepted() === props.sentence.replace(/ /gi, "␣")) {
+            if (props.state !== State.Done) {
+                props.done();
+            }
+        }
+    })
 
     useEffect(() => {
         setTyped(new UserInput())
     }, [props])
     return (
         <div>
-            <div>
+            <div style={{ color: getColor(props.state) }}>
                 {props.sentence}
             </div>
             <div>
