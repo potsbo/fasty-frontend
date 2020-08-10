@@ -70,6 +70,7 @@ const abcd: Course = {
         {
             title: 'Lesson 5 Comprehensive, including O and N',
             sentences: [
+                'HUN',
                 'eeee hhhh nnnn oooo tttt uuuu',
                 'en en en en  ho ho ho ho  ne ne ne ne  nu nu nu nu  oh oh oh oh  to to to to',
                 'hen hen hen hen  hoe hoe hoe hoe  hot hot hot hot  Hun Hun Hun Hun',
