@@ -25,7 +25,6 @@ const Lesson = (props: Props) => {
     const nextTask = (idx: number) => {
         return () => {
             setDoneIdx((current) => {
-                current.add(idx)
                 return current
             })
             setIndex((_: number) => {

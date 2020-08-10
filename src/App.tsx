@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import CourseView from "./CourseView"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons'
+import { faChevronLeft, faCode } from '@fortawesome/free-solid-svg-icons'
 import styled from "styled-components/macro";
 
 window.addEventListener('keydown', function (e) {
@@ -23,6 +23,7 @@ const App: React.FC = () => {
       <div>
         <Nav>
           <Link to="/"><FontAwesomeIcon icon={faChevronLeft} /></Link>
+          <a style={{ marginLeft: 'auto' }} href="https://github.com/potsbo/fasty-frontend"><FontAwesomeIcon icon={faCode} /></a>
         </Nav>
 
         {/* A <Switch> looks through its children <Route>s and
@@ -43,4 +44,5 @@ export default App;
 const Nav = styled.nav`
   padding: 8px;
   border-bottom: black;
+  display: flex;
 `
