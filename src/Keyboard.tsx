@@ -35,27 +35,27 @@ const stringToKeys = (s: string): Key[] => {
 
 const qwerty: Layout = {
   rows: [
-    { rowIndex: 0, keys: stringToKeys(`1234567890`) },
-    { rowIndex: 1, keys: stringToKeys("QWERTYUIOP") },
-    { rowIndex: 2, keys: stringToKeys("ASDFGHJKL;") },
+    { rowIndex: 0, keys: stringToKeys(`1234567890-=`) },
+    { rowIndex: 1, keys: stringToKeys("QWERTYUIOP[") },
+    { rowIndex: 2, keys: stringToKeys("ASDFGHJKL;'") },
     { rowIndex: 3, keys: stringToKeys("ZXCVBNM,./") },
   ],
 };
 
 const dvorak: Layout = {
   rows: [
-    { rowIndex: 0, keys: stringToKeys(`1234567890`) },
-    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL`) },
-    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS") },
+    { rowIndex: 0, keys: stringToKeys(`1234567890[]`) },
+    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL/`) },
+    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS-") },
     { rowIndex: 3, keys: stringToKeys(";QJKXBMWVZ") },
   ],
 };
 
 const lrdvorak: Layout = {
   rows: [
-    { rowIndex: 0, keys: stringToKeys(`![{(=+)}]*`) },
-    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL`) },
-    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS") },
+    { rowIndex: 0, keys: stringToKeys("![{(=+)}]*&`") },
+    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL/`) },
+    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS-") },
     { rowIndex: 3, keys: stringToKeys(";QJKXBMWVZ") },
   ],
 };
@@ -72,7 +72,7 @@ const ldvorak: Layout = {
 const rdvorak: Layout = {
   rows: [
     { rowIndex: 0, keys: stringToKeys(`1234JLMFP/[]`) },
-    { rowIndex: 1, keys: stringToKeys(`56Q.ORSUYB;=`) },
+    { rowIndex: 1, keys: stringToKeys(`56Q.ORSUYB;`) },
     { rowIndex: 2, keys: stringToKeys("78ZAEHTDCK-") },
     { rowIndex: 3, keys: stringToKeys("90X,INWVG'") },
   ],
@@ -174,8 +174,8 @@ const KeyView = styled.div`
   color: ${(props) => (props.theme.active ? "lightgray" : "gray")};
   background: ${(props) => (props.theme.active ? "orange" : "white")};
   display: flex;
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
