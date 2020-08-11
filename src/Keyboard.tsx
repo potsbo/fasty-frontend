@@ -21,6 +21,7 @@ export enum LayoutName {
 
 interface Props {
   layout: LayoutName;
+  activeKeys: Set<string>;
 }
 
 const stringToKeys = (s: string): Key[] => {
@@ -57,7 +58,13 @@ const Keyboard = (props: Props) => {
   }
 
   const layout = layoutConfig.rows.map((r) => {
-    const keys = r.keys.map((k) => <KeyView key={k.face}>{k.face}</KeyView>);
+    const keys = r.keys.map((k) => {
+      return (
+        <KeyView key={k.face} theme={{ active: props.activeKeys.has(k.face.toLowerCase()) }}>
+          {k.face}
+        </KeyView>
+      );
+    });
     return (
       <RowView key={r.rowIndex} theme={{ index: r.rowIndex }}>
         {keys}
@@ -76,6 +83,7 @@ const KeyView = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: gray;
+  background: ${(props) => (props.theme.active ? "orange" : "white")};
   display: flex;
   width: 50px;
   height: 50px;
