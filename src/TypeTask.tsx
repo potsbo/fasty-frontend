@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useKeypress from "react-use-keypress";
 import styled, { keyframes } from "styled-components/macro";
 
@@ -143,8 +143,16 @@ const TypeTask = (props: Props) => {
     setTyped(new UserInput());
   }, [props]);
 
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (props.state === State.Active && cardRef.current) {
+      cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [props.state]);
+
   return (
-    <TaskCard theme={{ state: props.state }}>
+    <TaskCard theme={{ state: props.state }} ref={cardRef}>
       {props.total && props.index && (
         <div>
           {props.index}/{props.total}
