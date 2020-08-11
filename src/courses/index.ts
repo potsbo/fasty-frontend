@@ -17,8 +17,10 @@ const abcd: Course = {
     {
       title: "Lesson 1 Introducing U and H: Home row, Index fingers",
       sentences: [
-        "uuuu hhhh uuuu hhhh  uuuu hhhh uuuu hhhh",
-        "uuuu hhhh uuuu hhhh  uuuu hhhh uuuu hhhh",
+        "u h",
+        "u h",
+        // "uuuu hhhh uuuu hhhh  uuuu hhhh uuuu hhhh",
+        // "uuuu hhhh uuuu hhhh  uuuu hhhh uuuu hhhh",
         "uh uh uh uh",
         "hu hu hu hu",
         "huh huh huh huh",
