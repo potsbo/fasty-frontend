@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useKeypress from "react-use-keypress";
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
 
 interface Props {
   sentence: string;
@@ -75,6 +75,10 @@ class UserInput {
 
   public getMissTyped = () => {
     return this.missTyped.replace(/ /gi, "␣");
+  };
+
+  public isEmpty = () => {
+    return this.accepted.length === 0 && this.missTyped.length === 0;
   };
 
   // TODO: I don't know a way to tell react that this object is actually changed
@@ -152,6 +156,12 @@ const TypeTask = (props: Props) => {
       <div>
         <TaskSpan>{typed.getAccepted()}</TaskSpan>
         <TaskSpan style={{ color: "red" }}>{typed.getMissTyped()}</TaskSpan>
+        {props.state === State.Active && typed.isEmpty() && (
+          <TaskSpan>
+            <Cursor />
+            <Placeholder>Please enter characters as above.</Placeholder>
+          </TaskSpan>
+        )}
       </div>
     </TaskCard>
   );
@@ -160,7 +170,9 @@ const TypeTask = (props: Props) => {
 export default TypeTask;
 
 const TaskSpan = styled.span`
+  position: relative;
   font-size: 18px;
+  line-height: 24px;
   letter-spacing: 2px;
 `;
 
@@ -176,4 +188,37 @@ const TaskCard = styled.div`
   margin-right: 36px;
   opacity: ${(props) => getOpacity(props.theme.state)}%;
   transition: 0.1s;
+`;
+
+const flashing = keyframes`
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const Cursor = styled.span`
+  position: absolute;
+  top: 2px;
+  left: 0;
+  bottom: 0;
+  display: block;
+  width: 2px;
+  height: 18px;
+  background-color: red;
+  animation: ${flashing} 0.5s linear infinite;
+  animation-direction: alternate;
+`;
+
+const Placeholder = styled.p`
+  margin: 0;
+  margin-left: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.4);
 `;
