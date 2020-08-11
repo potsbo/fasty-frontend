@@ -42,6 +42,6 @@
     "@types/styled-components": "^5.1",
     "frolint": "^2.2.1",
     "react-scripts": "^3.0",
-    "typescript": "3.5.1"
+    "typescript": "3.9.7"
   }
 }
