@@ -82,7 +82,7 @@ const KeyView = styled.div`
   font-family: Helvetica;
   font-size: 18px;
   font-weight: bold;
-  color: gray;
+  color: ${(props) => (props.theme.active ? "lightgray" : "gray")};
   background: ${(props) => (props.theme.active ? "orange" : "white")};
   display: flex;
   width: 50px;
@@ -90,8 +90,9 @@ const KeyView = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px 4px #dddddd;
+  box-shadow: ${(props) => (props.theme.active ? "none" : "0px 0px 10px 4px #dddddd")};
   margin: 8px;
+  transition: 0.1s;
 `;
 
 const RowView = styled.div`
