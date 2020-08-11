@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import CourseView from "./CourseView";
+import Keyboard from "./Keyboard"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faCode } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components/macro";
@@ -31,6 +32,9 @@ const App: React.FC = () => {
             <Redirect to="/courses/abcd" />
           </Route>
           <Route path="/courses/:courseSlug" component={CourseView} />
+          <Route path="/try">
+            <Keyboard />
+          </Route>
         </Switch>
       </div>
     </Router>
