@@ -89,4 +89,5 @@ const KeyView = styled.div`
 const RowView = styled.div`
   display: flex;
   padding-left: ${(props) => props.theme.index * 16}px;
+  padding-right: ${(props) => (2 - props.theme.index) * 16}px;
 `;
