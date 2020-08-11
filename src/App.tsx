@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import CourseView from "./CourseView";
-import Keyboard, { LayoutName } from "./Keyboard"
+import Keyboard, { LayoutName } from "./Keyboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faCode } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components/macro";
