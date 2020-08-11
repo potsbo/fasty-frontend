@@ -25,10 +25,12 @@ const CourseView = (_: {}) => {
   const onClickBar = (lesson: number) => {
     setPreviewLesson((current) => {
       if (current === lesson) {
-        history.push(url);
+        // TODO: calling history.push breaks `Start` Button
+        // history.push(url);
         return undefined;
       }
-      history.push(`${url}?preview=${lesson}`);
+      // TODO: calling history.push breaks `Start` Button
+      // history.push(`${url}?preview=${lesson}`);
       return lesson;
     });
   };
@@ -193,6 +195,7 @@ const RoundButton = styled.button`
   }
   &:focus {
     border: none;
+    outline: none;
   }
 `;
 
