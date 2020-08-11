@@ -3,6 +3,7 @@ import { Redirect, Route, Switch, useHistory, useLocation, useParams, useRouteMa
 import styled from "styled-components/macro";
 import abcd, { Course, LessonData } from "./courses";
 import Lesson from "./Lesson";
+import Keyboard, { LayoutName } from "./Keyboard";
 
 const courses = new Map<string, Course>([["abcd", abcd]]);
 
@@ -14,31 +15,33 @@ const CourseView = (_: {}) => {
   const { courseSlug } = useParams();
   const previewIdFromQuery = parseInt(useQuery().get("preview") || "", 10);
   const { path, url } = useRouteMatch();
-  const [previewIdx, setPreviewIdx] = useState<number | undefined>(previewIdFromQuery || undefined);
+  const [previewLesson, setPreviewLesson] = useState<number | undefined>(previewIdFromQuery || undefined);
   const history = useHistory();
   const course = courses.get(courseSlug);
   if (course === undefined) {
     // TODO: better 404
     return <div>404</div>;
   }
-  const onClickBar = (idx: number) => {
-    setPreviewIdx((current) => {
-      if (current === idx) {
+  const onClickBar = (lesson: number) => {
+    setPreviewLesson((current) => {
+      if (current === lesson) {
+        history.push(url);
         return undefined;
       }
-      return idx;
+      history.push(`${url}?preview=${lesson}`);
+      return lesson;
     });
   };
 
   const lessonList = course.lessons.map((l: LessonData, idx: number) => {
     // TODO: better link management
-    const theme = { previewState: previewIdx === idx };
+    const theme = { previewState: previewLesson === idx + 1 };
     return (
       <Li key={l.title}>
         <RoundBar
           theme={theme}
           onClick={() => {
-            onClickBar(idx);
+            onClickBar(idx + 1);
           }}
         >
           <FlexSpan>
@@ -54,6 +57,9 @@ const CourseView = (_: {}) => {
             </RoundButton>
           </FlexSpan>
           <TaskPreview theme={theme}>
+            <div style={{ width: "720px", margin: "auto", marginBottom: "16px" }}>
+              <Keyboard layout={LayoutName.Dvorak} activeKeys={new Set(l.focusKeys)} />
+            </div>
             {l.sentences.map((s: string, i: number) => (
               // eslint-disable-next-line react/no-array-index-key
               <p key={`${s}${i}`} style={{ margin: "8px" }}>
@@ -117,7 +123,7 @@ const RoundBar = styled.span`
   display: block;
   cursor: default;
 
-  height: ${(props) => (props.theme.previewState ? 300 : 48)}px;
+  height: ${(props) => (props.theme.previewState ? 500 : 48)}px;
   box-shadow: ${(props) => (props.theme.previewState ? "0px 0px 10px 4px #CCCCCC" : "none")};
   border-radius: 24px;
 
@@ -193,8 +199,9 @@ const RoundButton = styled.button`
 const TaskPreview = styled.div`
   margin-top: 16px;
   margin-left: 48px;
-  overflow: scroll;
-  height: ${(props) => (props.theme.previewState ? 200 : 0)}px;
+  overflow: hidden;
+  height: ${(props) => (props.theme.previewState ? 400 : 0)}px;
+  opacity: ${(props) => (props.theme.previewState ? 100 : 0)}%;
   transition: 0.2s;
   transition-timing-function: ease;
 `;

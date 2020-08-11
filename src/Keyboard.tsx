@@ -21,7 +21,7 @@ export enum LayoutName {
 
 interface Props {
   layout: LayoutName;
-  activeKeys: Set<string>;
+  activeKeys?: Set<string>;
 }
 
 const stringToKeys = (s: string): Key[] => {
@@ -114,7 +114,7 @@ const Keyboard = (props: Props) => {
   const layout = layoutConfig.rows.map((r) => {
     const keys = r.keys.map((k) => {
       return (
-        <KeyView key={k.face} theme={{ active: props.activeKeys.has(k.face.toLowerCase()) }}>
+        <KeyView key={k.face} theme={{ active: props.activeKeys?.has(k.face.toLowerCase()) }}>
           {k.face}
         </KeyView>
       );
