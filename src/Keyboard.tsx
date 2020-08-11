@@ -46,6 +46,60 @@ const dvorak: Layout = {
   ],
 };
 
+interface Position {
+  row: number;
+  column: number;
+}
+
+const extractPosition = (layout: Layout, key: string): Position | null => {
+  for (let row = 0; row < layout.rows.length; row++) {
+    for (let column = 0; column < layout.rows[row].keys.length; column++) {
+      if (layout.rows[row].keys[column].face.toLowerCase() === key.toLowerCase()) {
+        return { row, column };
+      }
+    }
+  }
+
+  return null;
+};
+
+const findKey = (layout: Layout, position: Position): string | null => {
+  const row = layout.rows[position.row];
+  if (row === undefined) {
+    return null;
+  }
+
+  const key = row.keys[position.column];
+  if (key === undefined) {
+    return null;
+  }
+
+  return key.face.toLowerCase();
+};
+
+type converter = (key: string) => string | null;
+
+export const getLayoutConverter = (from: LayoutName, to: LayoutName): converter => {
+  const fromLayout = layouts.get(from);
+  if (fromLayout === undefined) {
+    return (_: string) => null;
+  }
+
+  const toLayout = layouts.get(to);
+  if (toLayout === undefined) {
+    return (_: string) => null;
+  }
+
+  return (key: string): string | null => {
+    const p = extractPosition(fromLayout, key);
+    if (p === null) {
+      return null;
+    }
+
+    return findKey(toLayout, p);
+  };
+};
+
 const layouts = new Map<LayoutName, Layout>([
   [LayoutName.Dvorak, dvorak],
   [LayoutName.Qwerty, qwerty],
@@ -82,7 +136,7 @@ const KeyView = styled.div`
   font-family: Helvetica;
   font-size: 18px;
   font-weight: bold;
-  color: gray;
+  color: ${(props) => (props.theme.active ? "lightgray" : "gray")};
   background: ${(props) => (props.theme.active ? "orange" : "white")};
   display: flex;
   width: 50px;
@@ -90,8 +144,9 @@ const KeyView = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  box-shadow: 0px 0px 10px 4px #dddddd;
+  box-shadow: ${(props) => (props.theme.active ? "none" : "0px 0px 10px 4px #dddddd")};
   margin: 8px;
+  transition: 0.1s;
 `;
 
 const RowView = styled.div`
