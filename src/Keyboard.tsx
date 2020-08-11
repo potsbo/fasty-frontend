@@ -35,9 +35,10 @@ const stringToKeys = (s: string): Key[] => {
 
 const qwerty: Layout = {
   rows: [
-    { rowIndex: 0, keys: stringToKeys("QWERTYUIOP") },
-    { rowIndex: 1, keys: stringToKeys("ASDFGHJKL;") },
-    { rowIndex: 2, keys: stringToKeys("ZXCVBNM,./") },
+    { rowIndex: 0, keys: stringToKeys(`1234567890`) },
+    { rowIndex: 1, keys: stringToKeys("QWERTYUIOP") },
+    { rowIndex: 2, keys: stringToKeys("ASDFGHJKL;") },
+    { rowIndex: 3, keys: stringToKeys("ZXCVBNM,./") },
   ],
 };
 
