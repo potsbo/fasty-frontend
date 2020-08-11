@@ -16,7 +16,10 @@ interface Key {
 
 export enum LayoutName {
   Dvorak = "dvorak",
+  LDvorak = "ldvorak",
+  RDvorak = "rdvorak",
   Qwerty = "qwerty",
+  LRDvorak = "lrdvorak",
 }
 
 interface Props {
@@ -40,9 +43,37 @@ const qwerty: Layout = {
 
 const dvorak: Layout = {
   rows: [
-    { rowIndex: 0, keys: stringToKeys(`',.PYFGCRL`) },
-    { rowIndex: 1, keys: stringToKeys("AOEUIDHTNS") },
-    { rowIndex: 2, keys: stringToKeys(";QJKXBMWVZ") },
+    { rowIndex: 0, keys: stringToKeys(`1234567890`) },
+    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL`) },
+    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS") },
+    { rowIndex: 3, keys: stringToKeys(";QJKXBMWVZ") },
+  ],
+};
+
+const lrdvorak: Layout = {
+  rows: [
+    { rowIndex: 0, keys: stringToKeys(`![{(=+)}]*`) },
+    { rowIndex: 1, keys: stringToKeys(`',.PYFGCRL`) },
+    { rowIndex: 2, keys: stringToKeys("AOEUIDHTNS") },
+    { rowIndex: 3, keys: stringToKeys(";QJKXBMWVZ") },
+  ],
+};
+
+const ldvorak: Layout = {
+  rows: [
+    { rowIndex: 0, keys: stringToKeys(`[]?PFMLJ4321`) },
+    { rowIndex: 1, keys: stringToKeys(`;QBYURSO.65`) },
+    { rowIndex: 2, keys: stringToKeys("-KCDTHEAZ87") },
+    { rowIndex: 3, keys: stringToKeys("'XGVWNI,09") },
+  ],
+};
+
+const rdvorak: Layout = {
+  rows: [
+    { rowIndex: 0, keys: stringToKeys(`1234JLMFP/[]`) },
+    { rowIndex: 1, keys: stringToKeys(`56Q.ORSUYB;=`) },
+    { rowIndex: 2, keys: stringToKeys("78ZAEHTDCK-") },
+    { rowIndex: 3, keys: stringToKeys("90X,INWVG'") },
   ],
 };
 
@@ -103,6 +134,9 @@ export const getLayoutConverter = (from: LayoutName, to: LayoutName): converter 
 const layouts = new Map<LayoutName, Layout>([
   [LayoutName.Dvorak, dvorak],
   [LayoutName.Qwerty, qwerty],
+  [LayoutName.LDvorak, ldvorak],
+  [LayoutName.RDvorak, rdvorak],
+  [LayoutName.LRDvorak, lrdvorak],
 ]);
 
 const Keyboard = (props: Props) => {
@@ -151,6 +185,7 @@ const KeyView = styled.div`
 
 const RowView = styled.div`
   display: flex;
+  margin: auto;
   padding-left: ${(props) => props.theme.index * 16}px;
-  padding-right: ${(props) => (2 - props.theme.index) * 16}px;
+  // padding-right: ${(props) => (3 - props.theme.index) * 16}px;
 `;

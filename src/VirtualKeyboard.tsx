@@ -5,7 +5,7 @@ import styled from "styled-components/macro";
 
 const lowers = Array.from({ length: 26 }, (_, i) => String.fromCharCode("a".charCodeAt(0) + i));
 const uppers = Array.from({ length: 26 }, (_, i) => String.fromCharCode("A".charCodeAt(0) + i));
-const symbols = ` ',.;`.split("");
+const symbols = ` ',.;![{(=+)}]*`.split("");
 const trapKeys = lowers.concat(uppers, symbols);
 
 const VirtualKeyboard = () => {
@@ -36,7 +36,7 @@ const VirtualKeyboard = () => {
     });
   });
 
-  const layouts = [LayoutName.Dvorak, LayoutName.Qwerty];
+  const layouts = [LayoutName.Dvorak, LayoutName.Qwerty, LayoutName.LDvorak, LayoutName.RDvorak, LayoutName.LRDvorak];
 
   return (
     <Wrapper>
@@ -86,7 +86,7 @@ const VirtualKeyboard = () => {
 export default VirtualKeyboard;
 
 const Wrapper = styled.div`
-  width: 720px;
+  width: 760px;
   margin: auto;
 `;
 
