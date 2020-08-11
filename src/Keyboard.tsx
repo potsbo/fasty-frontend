@@ -77,15 +77,17 @@ const findKey = (layout: Layout, position: Position): string | null => {
   return key.face.toLowerCase();
 };
 
-export const getLayoutConverter = (from: LayoutName, to: LayoutName): ((key: string) => string | null) => {
+type converter = (key: string) => string | null;
+
+export const getLayoutConverter = (from: LayoutName, to: LayoutName): converter => {
   const fromLayout = layouts.get(from);
   if (fromLayout === undefined) {
-    return () => null;
+    return (_: string) => null;
   }
 
   const toLayout = layouts.get(to);
   if (toLayout === undefined) {
-    return () => null;
+    return (_: string) => null;
   }
 
   return (key: string): string | null => {
