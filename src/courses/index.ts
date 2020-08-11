@@ -7,6 +7,7 @@ export interface Course {
 export interface LessonData {
   title: string;
   sentences: string[];
+  focusKeys?: string[];
   scramble?: boolean;
 }
 
@@ -26,6 +27,7 @@ const abcd: Course = {
         "h u uh hu uhh huh uhh",
         "h u uh hu uhh huh uhh",
       ],
+      focusKeys: ["h", "u"],
     },
     {
       title: "Lesson 2 Introducing E and T: Home row, Second fingers",
@@ -39,6 +41,7 @@ const abcd: Course = {
         "t e et te teet tee teet tete et",
         "t e et te teet tee teet tete et",
       ],
+      focusKeys: ["t", "e"],
     },
     {
       title: "Lesson 3 Comprehensive: E, H, T, U",
@@ -52,6 +55,7 @@ const abcd: Course = {
         "eh he hue hut teeth teethe the thee tutu",
         "eh he hue hut teeth teethe the thee tutu",
       ],
+      focusKeys: ["t", "e", "h", "u"],
     },
     {
       title: "Lesson 4 Introducing O and N: Home row, third fingers",
@@ -66,6 +70,7 @@ const abcd: Course = {
         "no non noon on noo ono",
         "no non noon on noo ono",
       ],
+      focusKeys: ["o", "n"],
     },
     {
       title: "Lesson 5 Comprehensive, including O and N",
@@ -93,6 +98,7 @@ const abcd: Course = {
         "None hunt out the tenth one ton nun",
         "Hunt the neon then toot out the tune onto the tent",
       ],
+      focusKeys: ["o", "n"],
     },
     {
       title: "Lesson 6 Introducing A and S: Home row, fourth fingers",
@@ -107,6 +113,7 @@ const abcd: Course = {
         "as a sass ass as a sas",
         "as a sass ass as a sas",
       ],
+      focusKeys: ["a", "s"],
     },
     {
       title: "Lesson 7 Comprehensive, including A and S",
