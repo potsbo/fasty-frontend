@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useKeypress from "react-use-keypress";
 import styled from "styled-components/macro";
 
 interface Layout {
@@ -12,6 +11,15 @@ interface Row {
 
 interface Key {
     face: string
+}
+
+export enum LayoutName {
+    Dvorak = "dvorak",
+    Qwerty = "qwerty",
+}
+
+interface Props {
+    layout: LayoutName
 }
 
 const stringToKeys = (s: string): Key[] => {
@@ -34,8 +42,20 @@ const dvorak: Layout = {
     ],
 }
 
-const Keyboard = () => {
-    const layout = dvorak.rows.map((r, rowIdx) => {
+const layouts = new Map<LayoutName, Layout>(
+    [
+        [LayoutName.Dvorak, dvorak],
+        [LayoutName.Qwerty, qwerty],
+    ]
+)
+
+const Keyboard = (props: Props) => {
+    const layoutConfig = layouts.get(props.layout)
+    if (layoutConfig === undefined) {
+        return <div>not found</div>
+    }
+
+    const layout = layoutConfig.rows.map((r, rowIdx) => {
         const keys = r.keys.map((k) => <KeyView>{k.face}</KeyView>)
         return (
             <RowView theme={{ index: rowIdx }}>
