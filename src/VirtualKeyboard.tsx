@@ -86,7 +86,7 @@ const VirtualKeyboard = () => {
 export default VirtualKeyboard;
 
 const Wrapper = styled.div`
-  width: 760px;
+  width: 780px;
   margin: auto;
 `;
 
