@@ -9,6 +9,7 @@ const symbols = ` ',.;`.split("");
 const trapKeys = lowers.concat(uppers, symbols);
 
 const VirtualKeyboard = () => {
+  const [logicalLayout, setLogicalLayout] = useState(LayoutName.Dvorak);
   const [activeKeys, setActiveKeys] = useState(new Set<string>());
 
   // TODO: get key up event to deactivate
@@ -27,7 +28,24 @@ const VirtualKeyboard = () => {
 
   return (
     <Wrapper>
-      <Keyboard layout={LayoutName.Dvorak} activeKeys={activeKeys} />
+      <div>
+        <h3>phisical layout</h3>
+        <button>Dvorak</button>
+        <button>Qwerty</button>
+      </div>
+      <div>
+        <h3>logical layout</h3>
+        <button>Dvorak</button>
+        <button
+          onClick={() => {
+            setLogicalLayout(LayoutName.Qwerty);
+          }}
+        >
+          Qwerty
+        </button>
+      </div>
+
+      <Keyboard layout={logicalLayout} activeKeys={activeKeys} />
     </Wrapper>
   );
 };

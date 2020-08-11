@@ -46,6 +46,58 @@ const dvorak: Layout = {
   ],
 };
 
+interface Position {
+  row: number;
+  column: number;
+}
+
+const extractPosition = (layout: Layout, key: string): Position | null => {
+  for (let row = 0; row < layout.rows.length; row++) {
+    for (let column = 0; column < layout.rows[row].keys.length; column++) {
+      if (layout.rows[row].keys[column].face.toLowerCase() === key.toLowerCase()) {
+        return { row, column };
+      }
+    }
+  }
+
+  return null;
+};
+
+const findKey = (layout: Layout, position: Position): string | null => {
+  const row = layout.rows[position.row];
+  if (row === undefined) {
+    return null;
+  }
+
+  const key = row.keys[position.column];
+  if (key === undefined) {
+    return null;
+  }
+
+  return key.face.toLowerCase();
+};
+
+export const getLayoutConverter = (from: LayoutName, to: LayoutName): ((key: string) => string | null) => {
+  const fromLayout = layouts.get(from);
+  if (fromLayout === undefined) {
+    return () => null;
+  }
+
+  const toLayout = layouts.get(to);
+  if (toLayout === undefined) {
+    return () => null;
+  }
+
+  return (key: string): string | null => {
+    const p = extractPosition(fromLayout, key);
+    if (p === null) {
+      return null;
+    }
+
+    return findKey(toLayout, p);
+  };
+};
+
 const layouts = new Map<LayoutName, Layout>([
   [LayoutName.Dvorak, dvorak],
   [LayoutName.Qwerty, qwerty],
