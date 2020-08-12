@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Redirect, Route, Switch, useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import styled from "styled-components/macro";
 import abcd, { Course, LessonData } from "./courses";
-import Keyboard, { LayoutName } from "./Keyboard";
+import Keyboard from "./Keyboard";
+import { KeyboardContext } from "./KeyboardConfiguration";
 import Lesson from "./Lesson";
 
 const courses = new Map<string, Course>([["abcd", abcd]]);
@@ -12,6 +13,7 @@ const useQuery = () => {
 };
 
 const CourseView = (_: {}) => {
+  const config = useContext(KeyboardContext);
   const { courseSlug } = useParams();
   const previewIdFromQuery = parseInt(useQuery().get("preview") || "", 10);
   const { path, url } = useRouteMatch();
@@ -70,7 +72,7 @@ const CourseView = (_: {}) => {
           </FlexSpan>
           <TaskPreview theme={theme}>
             <div style={{ width: "720px", margin: "auto", marginBottom: "16px" }}>
-              <Keyboard layout={LayoutName.Dvorak} activeKeys={new Set(l.focusKeys)} />
+              <Keyboard layout={config.logical} activeKeys={new Set(l.focusKeys)} />
             </div>
             {l.sentences.map((s: string, i: number) => (
               // eslint-disable-next-line react/no-array-index-key

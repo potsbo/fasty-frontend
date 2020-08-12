@@ -1,6 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import useKeypress from "react-use-keypress";
 import styled, { keyframes } from "styled-components/macro";
+import { KeyboardContext } from "./KeyboardConfiguration";
 
 interface Props {
   sentence: string;
@@ -113,6 +114,8 @@ const TypeTask = (props: Props) => {
     });
   });
 
+  const keyboardConfig = useContext(KeyboardContext);
+
   useKeypress(trapKeys, (event: KeyboardEvent) => {
     if (props.state !== State.Active) {
       return;
@@ -125,8 +128,12 @@ const TypeTask = (props: Props) => {
     }
 
     setTyped((current: UserInput) => {
-      const challenge = current.concatinated() + event.key;
-      current.add(event.key, valid(challenge));
+      const key = keyboardConfig.convert(event.key);
+      if (key === null) {
+        return current;
+      }
+      const challenge = current.concatinated() + key;
+      current.add(key, valid(challenge));
       return current.clone();
     });
   });
