@@ -59,7 +59,7 @@ const VirtualKeyboard = () => {
         </div>
       </div>
       <div>
-        <h3 style={{ fontFamily: "Helvetica" }}>phisical layout</h3>
+        <h3 style={{ fontFamily: "Helvetica" }}>logical layout</h3>
         <div style={{ display: "flex" }}>
           {layouts.map((l) => {
             return (
