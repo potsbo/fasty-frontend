@@ -10,10 +10,10 @@ const trapKeys = lowers.concat(uppers, symbols);
 
 const VirtualKeyboard = () => {
   const [logicalLayout, setLogicalLayout] = useState(LayoutName.Dvorak);
-  const [phisicalLayout, setPhisicalLayout] = useState(LayoutName.Dvorak);
+  const [physicalLayout, setPhysicalLayout] = useState(LayoutName.Dvorak);
   const [activeKeys, setActiveKeys] = useState(new Set<string>());
-  const convert: (key: string) => string | null = useMemo(() => getLayoutConverter(phisicalLayout, logicalLayout), [
-    phisicalLayout,
+  const convert: (key: string) => string | null = useMemo(() => getLayoutConverter(physicalLayout, logicalLayout), [
+    physicalLayout,
     logicalLayout,
   ]);
 
@@ -41,14 +41,14 @@ const VirtualKeyboard = () => {
   return (
     <Wrapper>
       <div>
-        <h3 style={{ fontFamily: "Helvetica" }}>phisical layout</h3>
+        <h3 style={{ fontFamily: "Helvetica" }}>physical layout</h3>
         <div style={{ display: "flex" }}>
           {layouts.map((l) => {
             return (
               <RoundButton
-                theme={{ active: phisicalLayout === l }}
+                theme={{ active: physicalLayout === l }}
                 onClick={() => {
-                  setPhisicalLayout(l);
+                  setPhysicalLayout(l);
                 }}
                 key={l}
               >
@@ -59,7 +59,7 @@ const VirtualKeyboard = () => {
         </div>
       </div>
       <div>
-        <h3 style={{ fontFamily: "Helvetica" }}>phisical layout</h3>
+        <h3 style={{ fontFamily: "Helvetica" }}>logical layout</h3>
         <div style={{ display: "flex" }}>
           {layouts.map((l) => {
             return (
