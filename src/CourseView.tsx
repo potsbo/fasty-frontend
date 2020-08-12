@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Redirect, Route, Switch, useHistory, useLocation, useParams, useRouteMatch } from "react-router-dom";
 import styled from "styled-components/macro";
 import abcd, { Course, LessonData } from "./courses";
-import Lesson from "./Lesson";
-import { KeyboardContext } from "./KeyboardConfiguration";
 import Keyboard from "./Keyboard";
+import { KeyboardContext } from "./KeyboardConfiguration";
+import Lesson from "./Lesson";
 
 const courses = new Map<string, Course>([["abcd", abcd]]);
 
@@ -18,23 +18,33 @@ const CourseView = (_: {}) => {
   const previewIdFromQuery = parseInt(useQuery().get("preview") || "", 10);
   const { path, url } = useRouteMatch();
   const [previewLesson, setPreviewLesson] = useState<number | undefined>(previewIdFromQuery || undefined);
+  const lessonBarRef = useRef<HTMLLIElement | null>(null);
   const history = useHistory();
   const course = courses.get(courseSlug);
+
+  useEffect(() => {
+    if (!lessonBarRef.current) {
+      return;
+    }
+    const listener = (e: MouseEvent) => {
+      if (!lessonBarRef.current?.contains(e.target as Node)) {
+        setPreviewLesson(undefined);
+      }
+    };
+    window.addEventListener("click", listener);
+    return () => window.removeEventListener("click", listener);
+    // eslint-disable-next-line
+  }, [lessonBarRef.current]);
+
   if (course === undefined) {
     // TODO: better 404
     return <div>404</div>;
   }
-  const onClickBar = (lesson: number) => {
-    setPreviewLesson((current) => {
-      if (current === lesson) {
-        // TODO: calling history.push breaks `Start` Button
-        // history.push(url);
-        return undefined;
-      }
-      // TODO: calling history.push breaks `Start` Button
-      // history.push(`${url}?preview=${lesson}`);
-      return lesson;
-    });
+  const onClickBar = (lesson: number, e: React.MouseEvent) => {
+    lessonBarRef.current = e.target as HTMLLIElement;
+    // TODO: calling history.push breaks `Start` Button
+    // history.push(`${url}?preview=${lesson}`);
+    setPreviewLesson(lesson);
   };
 
   const lessonList = course.lessons.map((l: LessonData, idx: number) => {
@@ -44,8 +54,8 @@ const CourseView = (_: {}) => {
       <Li key={l.title}>
         <RoundBar
           theme={theme}
-          onClick={() => {
-            onClickBar(idx + 1);
+          onClick={(e: React.MouseEvent) => {
+            onClickBar(idx + 1, e);
           }}
         >
           <FlexSpan>
