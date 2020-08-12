@@ -15,7 +15,7 @@ window.addEventListener("keydown", function (e) {
 });
 
 const App: React.FC = () => {
-  const [showKeyConfig, setShowKeyConfig] = useState(true);
+  const [showKeyConfig, setShowKeyConfig] = useState(false);
   const [config, setConfig] = useState(defaultConfig);
   const onUpdateKeyboardConfig = (c: Config) => {
     setConfig(c);
