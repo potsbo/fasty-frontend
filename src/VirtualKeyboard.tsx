@@ -1,6 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useContext } from "react";
 import useKeypress from "react-use-keypress";
-import Keyboard, { LayoutName, getLayoutConverter } from "./Keyboard";
+import Keyboard, { LayoutName } from "./Keyboard";
+import { Config, KeyboardContext, getNewConfig } from "./KeyboardConfiguration";
 import styled from "styled-components/macro";
 
 const lowers = Array.from({ length: 26 }, (_, i) => String.fromCharCode("a".charCodeAt(0) + i));
@@ -8,14 +9,13 @@ const uppers = Array.from({ length: 26 }, (_, i) => String.fromCharCode("A".char
 const symbols = ` ',.;![{(=+)}]*`.split("");
 const trapKeys = lowers.concat(uppers, symbols);
 
-const VirtualKeyboard = () => {
-  const [logicalLayout, setLogicalLayout] = useState(LayoutName.Dvorak);
-  const [physicalLayout, setPhysicalLayout] = useState(LayoutName.Dvorak);
+interface Props {
+  onUpdateKeyboardConfig: (c: Config) => void;
+}
+
+const VirtualKeyboard = (props: Props) => {
+  const config = useContext(KeyboardContext);
   const [activeKeys, setActiveKeys] = useState(new Set<string>());
-  const convert: (key: string) => string | null = useMemo(() => getLayoutConverter(physicalLayout, logicalLayout), [
-    physicalLayout,
-    logicalLayout,
-  ]);
 
   // TODO: get key up event to deactivate
   useKeypress(trapKeys, (event: KeyboardEvent) => {
@@ -27,7 +27,7 @@ const VirtualKeyboard = () => {
     }
 
     setActiveKeys((curr) => {
-      const converted = convert(event.key);
+      const converted = config.convert(event.key);
       if (converted === null) {
         return curr;
       }
@@ -46,9 +46,10 @@ const VirtualKeyboard = () => {
           {layouts.map((l) => {
             return (
               <RoundButton
-                theme={{ active: physicalLayout === l }}
+                theme={{ active: config.physical === l }}
                 onClick={() => {
-                  setPhysicalLayout(l);
+                  const updated = getNewConfig(l, config.logical);
+                  props.onUpdateKeyboardConfig(updated);
                 }}
                 key={l}
               >
@@ -64,9 +65,10 @@ const VirtualKeyboard = () => {
           {layouts.map((l) => {
             return (
               <RoundButton
-                theme={{ active: logicalLayout === l }}
+                theme={{ active: config.logical === l }}
                 onClick={() => {
-                  setLogicalLayout(l);
+                  const updated = getNewConfig(config.physical, l);
+                  props.onUpdateKeyboardConfig(updated);
                 }}
                 key={l}
               >
@@ -77,7 +79,7 @@ const VirtualKeyboard = () => {
         </div>
       </div>
       <div style={{ marginTop: "16px" }}>
-        <Keyboard layout={logicalLayout} activeKeys={activeKeys} />
+        <Keyboard layout={config.logical} activeKeys={activeKeys} />
       </div>
     </Wrapper>
   );
