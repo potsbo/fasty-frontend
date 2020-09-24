@@ -109,7 +109,7 @@ const findKey = (layout: Layout, position: Position): string | null => {
   return key.face.toLowerCase();
 };
 
-export type converter = (key: string) => string | null;
+export type converter = (_: string) => string | null;
 
 export const getLayoutConverter = (from: LayoutName, to: LayoutName): converter => {
   const fromLayout = layouts.get(from);

@@ -10,7 +10,7 @@ const symbols = ` ',.;![{(=+)}]*`.split("");
 const trapKeys = lowers.concat(uppers, symbols);
 
 interface Props {
-  onUpdateKeyboardConfig: (c: Config) => void;
+  onUpdateKeyboardConfig: (_: Config) => void;
 }
 
 const VirtualKeyboard = (props: Props) => {
