@@ -1,2 +1,2 @@
 declare module "react-use-keypress";
-export default function useKeypress(keys: string | string[], callback: (event: KeyboardEvent) => void): void;
+export default function useKeypress(_keys: string | string[], _calback: (_event: KeyboardEvent) => void): void;
