@@ -9405,10 +9405,10 @@ react-scripts@^3.4:
   optionalDependencies:
     fsevents "2.1.2"
 
-react-use-keypress@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-use-keypress/-/react-use-keypress-1.0.1.tgz#029bc4e360c1ed0f372ec90e5ae7c897b0a53b97"
-  integrity sha512-VcQOpSInZCpAl4wjoVPSz38q9vmbipbt+eBKBx4F0GAhbSEUUbbKGk+gFMzlslsMWkDukTbdp3aWzLyKx8bl/Q==
+react-use-keypress@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-use-keypress/-/react-use-keypress-1.1.0.tgz#b6c3e23e5507a66e9aad3deeeeb64996d153039a"
+  integrity sha512-WO3j4I+4Lw095s7iVeoow7tJ2Frr71Lx7BdUhJpI/wNgn036uRMfSkvDCoeNV36v8fsWDGNyFIZX4rNppRDJBA==
   dependencies:
     use-latest "^1.1.0"
 
