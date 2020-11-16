@@ -42,7 +42,7 @@
     "@types/react-dom": "^16.9",
     "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1",
-    "frolint": "^2.2.6",
+    "frolint": "^2.2.7",
     "react-scripts": "^3.4",
     "typescript": "3.9.7"
   }
