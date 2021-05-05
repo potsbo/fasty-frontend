@@ -12,7 +12,7 @@
     "react-modal": "^3.13.1",
     "react-router-dom": "^5.2.0",
     "react-use-keypress": "^1.2.0",
-    "styled-components": "^5.2"
+    "styled-components": "^5.3"
   },
   "scripts": {
     "start": "react-scripts start",
